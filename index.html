@@ -1,151 +1,142 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <style>
-        .row {
-            margin-top: 20px;
-        }
-
-        /* Style for compass container */
-        .compass {
-            width: 80vmin;
-            height: 80vmin;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #0052D4, #65C7F7, #9CECFB);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Style for compass buttons */
-        .compass button {
-            width: 20vmin;
-            height: 20vmin;
-            border: none;
-            background-color: transparent;
-            font-size: 4vmin;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Additional styling for the compass buttons */
-        .compass button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-        }
-
-        /* Style for compass directions */
-        .compass .up,
-        .compass .down {
-            width: 100%;
-            text-align: center;
-        }
-
-        .compass .left,
-        .compass .right {
-            width: 70vmin;
-            height: 90vmin;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Styling for individual directions */
-        .compass .left button,
-        .compass .right button {
-            margin: 5vmin;
-        }
-
-        /* Animation for hover effect */
-        .compass button {
-            transition: background-color 0.3s, border-radius 0.3s;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .compass {
-                width: 60vmin;
-                height: 60vmin;
-            }
-
-            .compass button {
-                width: 15vmin;
-                height: 15vmin;
-                font-size: 3vmin;
-            }
-
-            .compass .left,
-            .compass .right {
-                width: 15vmin;
-                height: 60vmin;
-            }
-
-            .compass .left button,
-            .compass .right button {
-                margin: 3vmin;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIKE MOVE</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<style>
+  .img-thumbnail {
+    width: 25%;
+    border: 0cap;
+  }
+  .compass {
+    width: 8rem !important;
+    border-radius: 50% !important;
+    animation: shadow-pulse 2.5s infinite;
+  }
+  .rotation {
+    width: 8rem !important;
+    border-radius: 50% !important;
+    animation: rotate 2s linear infinite; /* continuous rotation animation */
+    animation-play-state: paused; /* initially paused */
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes bike-filter {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .2;
+    }
+  }
+  /* .bike:hover {
+    transform: scaleX(-1);
+  } */
+  @keyframes shadow-pulse {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.26);
+    }
+    100% {
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+  }
+  .bike {
+    justify-content: center;
+    margin-left: 420px;
+    transition: transform 0.5s ease;
+  }
+  .btn {
+    width: 5rem;
+    margin: 1rem;
+  }
+</style>
 </head>
 <body>
-    <div class="container text-center">
-        <!-- First Row -->
-        <div class="row">
-            <div class="col compass">
-                <div class="up">
-                    <button onclick="move('up')">↑</button>
-                </div>
-                <div class="left">
-                    <button onclick="move('left')">←</button>
-                </div>
-                <div class="right">
-                    <button onclick="move('right')">→</button>
-                </div>
-                <div class="down">
-                    <button onclick="move('down')">↓</button>
-                </div>
-            </div>
-            <div class="col" id="time">
-                <!-- Time will be inserted here dynamically -->
-            </div>
-        </div>
-        <!-- Second Row -->
-        <div class="row mt-3">
-            <div class="col">
-                <img src="bike_img.png" alt="bike" id="bikeImg" style="height: 80px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            </div>
-        </div>
+<div class="container-sm ms-5 mt-5">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-success" onclick="startAnimation()" type="submit">Start</button>
+      <button class="btn btn-danger" onclick="stopAnimation()" type="submit">Stop</button>
     </div>
+    <div class="col">
+        <img src="rotation.png" class="img-thumbnail rotation " alt="..." />
+        <p class="ms-4">On the way</p>
+      </div>
+    <div class="col ms-1">
+      <button class="btn btn-primary left-btn" type="button">Left</button>
+      <button class="btn btn-primary right-btn" type="button">Right</button>    
+    </div>
+    <div class="col ms-1">
+        <p id="startTime"></p>
+        <p id="endTime"></p>
+    </div>
+    <div class="col">
+      <img src="images.jpg" class="img-thumbnail compass ms-4" alt="..." />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <img src="bike.png" class="img-thumbnail bike" alt="..." />
+      <hr class="border border-3 opacity-75" style="margin-top: -50px" />
+    </div>
+  </div>
+</div>
 
-    <script>
-        // Function to move the bike
-        function move(direction) {
-            var bike = document.getElementById('bikeImg');
-            var increment = 10; // Change this value as needed
+<script>
+  var startTimeStamp, endTimeStamp;
+  var animationPaused = true;
 
-            switch (direction) {
-                case 'up':
-                    bike.style.marginTop = '-' + increment + 'px';
-                    break;
-                case 'down':
-                    bike.style.marginTop = increment + 'px';
-                    break;
-                case 'left':
-                    bike.style.marginLeft = '-' + increment + 'px';
-                    break;
-                case 'right':
-                    bike.style.marginLeft = increment + 'px';
-                    break;
-            }
-        }
-    </script>
+  function startTime() {
+    startTimeStamp = new Date().toLocaleTimeString();
+    document.getElementById("startTime").innerHTML = "Start Time: " + startTimeStamp;
+  }
+
+  function stopTime() {
+    endTimeStamp = new Date().toLocaleTimeString();
+    document.getElementById("endTime").innerHTML = "End Time: " + endTimeStamp;
+  }
+
+  function startAnimation() {
+    var rotationImg = document.querySelector('.rotation');
+    rotationImg.style.animationPlayState = "running";
+    startTime();
+    
+    var bikeImg = document.querySelector('.bike');
+    bikeImg.style.animation = "bike-filter 2s linear infinite";
+  }
+
+  function stopAnimation() {
+    var rotationImg = document.querySelector('.rotation');
+    rotationImg.style.animationPlayState = "paused";
+    stopTime();
+    
+    var bikeImg = document.querySelector('.bike');
+    bikeImg.style.animation = "none"; /* Stop the filter animation */
+  }
+
+  const bike = document.querySelector('.bike');
+  const leftBtn = document.querySelector('.left-btn');
+  const rightBtn = document.querySelector('.right-btn');
+
+  leftBtn.addEventListener('click', function() {
+    bike.style.transform = 'scaleX(1)';
+  });
+
+  rightBtn.addEventListener('click', function() {
+    bike.style.transform = 'scaleX(-1)';
+  });
+</script>
 </body>
 </html>
