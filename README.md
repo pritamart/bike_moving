@@ -1,2 +1,3 @@
 # bike_moving
-https://github.com/pritamart/bike_moving
+https://pritamart.github.io/bike_moving/
+
